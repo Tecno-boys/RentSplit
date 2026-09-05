@@ -217,6 +217,12 @@ body {
 
 /* ---------- Hero ---------- */
 
+#hero{
+  background-image: url("https://i.pinimg.com/736x/c2/05/43/c205436f58abfb27fc604330e304047a.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
 .rs-hero {
   position: relative;
   padding: 3rem 0 6rem;
