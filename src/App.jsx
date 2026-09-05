@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import Dashboard from './pages/Dashboard'    
+import Dashboard from './pages/dashboard'    
 import LandingPage from './pages/LandingPage'
 import './App.css'
 
