@@ -159,6 +159,7 @@ body {
   font-size: 0.875rem;
   font-weight: 500;
   color: #d1d5db;
+  padding: 2vw;
 }
 
 .rs-nav a:hover {
@@ -169,12 +170,6 @@ body {
   display: flex;
   align-items: center;
   gap: 1rem;
-}
-
-@media (min-width: 768px) {
-  .rs-nav {
-    display: flex;
-  }
 }
 
 .rs-btn {
@@ -215,13 +210,13 @@ body {
   transform: translateY(-2px);
 }
 
-/* ---------- Hero ---------- */
-
-#hero{
-  background-image: url("https://i.pinimg.com/736x/c2/05/43/c205436f58abfb27fc604330e304047a.jpg");
-  background-size: cover;
-  background-position: center;
+@media (max-width:1005px) {
+  .rs-nav{
+    display: none;
+  }
 }
+
+/* ---------- Hero ---------- */
 
 .rs-hero {
   position: relative;
