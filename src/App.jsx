@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import Dashboard from './pages/dashboard'    
-import LandingPage from './pages/LandingPage'
-import Expenses from './pages/Expenses'
-import RecurringBills from './pages/recurringbills'
-import DebtSettle from './debtsettle'
+import Dashboard from './pages/dashboard/dashboard'    
+import LandingPage from './pages/landingpage/LandingPage'
+import Expenses from './pages/expenses/Expenses'
+import RecurringBills from './pages/recurringbills/recurringbills'
+import DebtSettle from './pages/debtsettle/debtsettle'
 import './App.css'
 
 function App() {
