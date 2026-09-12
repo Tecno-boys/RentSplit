@@ -1,0 +1,23 @@
+@startuml RentSplit_Receipt_AI
+actor "Household Member" as User
+boundary "RentSplit UI" as UI
+control "Receipt Controller" as Controller
+component "AI / OCR Service" as AI
+control "Expense Service" as Expense
+ database "RentSplit DB" as DB
+
+User -> UI : Upload receipt image
+UI -> Controller : POST /receipts
+Controller -> AI : Extract merchant, date, items, total
+AI --> Controller : Structured receipt data + confidence
+Controller --> UI : Show extracted expense for confirmation
+User -> UI : Confirm / edit details
+UI -> Expense : Create expense
+Expense -> DB : Save Expense
+Expense -> DB : Save Receipt
+Expense -> DB : Save ExpenseSplit
+DB --> Expense : Saved records
+Expense --> UI : Updated balance
+UI --> User : Receipt expense added
+
+@enduml

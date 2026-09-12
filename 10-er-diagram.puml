@@ -1,0 +1,111 @@
+@startuml RentSplit_ER_Diagram
+hide methods
+hide stereotypes
+skinparam linetype ortho
+
+entity users {
+  * id : UUID <<PK>>
+  --
+  name : VARCHAR
+  email : VARCHAR <<UNIQUE>>
+  password_hash : VARCHAR
+  created_at : TIMESTAMP
+}
+
+entity households {
+  * id : UUID <<PK>>
+  --
+  name : VARCHAR
+  currency : VARCHAR
+  created_at : TIMESTAMP
+}
+
+entity household_members {
+  * id : UUID <<PK>>
+  --
+  user_id : UUID <<FK>>
+  household_id : UUID <<FK>>
+  role : VARCHAR
+  joined_at : TIMESTAMP
+}
+
+entity expenses {
+  * id : UUID <<PK>>
+  --
+  household_id : UUID <<FK>>
+  payer_member_id : UUID <<FK>>
+  description : VARCHAR
+  amount : DECIMAL
+  category : VARCHAR
+  expense_date : DATE
+  status : VARCHAR
+}
+
+entity expense_splits {
+  * id : UUID <<PK>>
+  --
+  expense_id : UUID <<FK>>
+  member_id : UUID <<FK>>
+  amount_owed : DECIMAL
+  split_type : VARCHAR
+  percentage : DECIMAL
+}
+
+entity recurring_expenses {
+  * id : UUID <<PK>>
+  --
+  household_id : UUID <<FK>>
+  description : VARCHAR
+  amount : DECIMAL
+  frequency : VARCHAR
+  next_due_date : DATE
+  active : BOOLEAN
+}
+
+entity payments {
+  * id : UUID <<PK>>
+  --
+  household_id : UUID <<FK>>
+  payer_member_id : UUID <<FK>>
+  receiver_member_id : UUID <<FK>>
+  amount : DECIMAL
+  paid_at : TIMESTAMP
+  method : VARCHAR
+  status : VARCHAR
+}
+
+entity invitations {
+  * id : UUID <<PK>>
+  --
+  household_id : UUID <<FK>>
+  created_by_user_id : UUID <<FK>>
+  token : VARCHAR <<UNIQUE>>
+  expires_at : TIMESTAMP
+  status : VARCHAR
+}
+
+entity receipts {
+  * id : UUID <<PK>>
+  --
+  expense_id : UUID <<FK>>
+  image_url : TEXT
+  merchant_name : VARCHAR
+  extracted_total : DECIMAL
+  confidence : DECIMAL
+  processed_at : TIMESTAMP
+}
+
+users ||--o{ household_members
+households ||--o{ household_members
+households ||--o{ expenses
+household_members ||--o{ expenses
+expenses ||--|{ expense_splits
+household_members ||--o{ expense_splits
+households ||--o{ recurring_expenses
+households ||--o{ payments
+household_members ||--o{ payments : payer
+household_members ||--o{ payments : receiver
+households ||--o{ invitations
+users ||--o{ invitations
+expenses ||--o| receipts
+@enduml

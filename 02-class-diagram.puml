@@ -1,0 +1,184 @@
+@startuml RentSplit_Class_Diagram
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+
+abstract class User {
+  +id: UUID
+  +name: String
+  +email: String
+  +passwordHash: String
+  +createdAt: DateTime
+}
+
+class Household {
+  +id: UUID
+  +name: String
+  +currency: String
+  +createdAt: DateTime
+}
+
+class HouseholdMember {
+  +id: UUID
+  +role: HouseholdRole
+  +joinedAt: DateTime
+}
+
+enum HouseholdRole {
+  OWNER
+  MEMBER
+}
+
+class Expense {
+  +id: UUID
+  +description: String
+  +amount: Decimal
+  +category: ExpenseCategory
+  +expenseDate: Date
+  +status: ExpenseStatus
+}
+
+enum ExpenseCategory {
+  RENT
+  ELECTRICITY
+  WATER
+  INTERNET
+  GROCERIES
+  CLEANING
+  OTHER
+}
+
+enum ExpenseStatus {
+  ACTIVE
+  SETTLED
+  CANCELLED
+}
+
+class ExpenseSplit {
+  +id: UUID
+  +amountOwed: Decimal
+  +splitType: SplitType
+  +percentage: Decimal
+}
+
+enum SplitType {
+  EQUAL
+  PERCENTAGE
+  FIXED
+  CUSTOM
+}
+
+class RecurringExpense {
+  +id: UUID
+  +description: String
+  +amount: Decimal
+  +frequency: Frequency
+  +nextDueDate: Date
+  +active: Boolean
+}
+
+enum Frequency {
+  WEEKLY
+  MONTHLY
+  YEARLY
+}
+
+class Payment {
+  +id: UUID
+  +amount: Decimal
+  +paidAt: DateTime
+  +method: PaymentMethod
+  +status: PaymentStatus
+}
+
+enum PaymentMethod {
+  CASH
+  BANK_TRANSFER
+  CARD
+  MOBILE_MONEY
+  OTHER
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+class Settlement {
+  +id: UUID
+  +amount: Decimal
+  +status: SettlementStatus
+  +createdAt: DateTime
+  +settledAt: DateTime
+}
+
+enum SettlementStatus {
+  PENDING
+  COMPLETED
+  CANCELLED
+}
+
+class Invitation {
+  +id: UUID
+  +token: String
+  +expiresAt: DateTime
+  +status: InvitationStatus
+}
+
+enum InvitationStatus {
+  ACTIVE
+  USED
+  EXPIRED
+  REVOKED
+}
+
+class Receipt {
+  +id: UUID
+  +imageUrl: String
+  +merchantName: String
+  +extractedTotal: Decimal
+  +processedAt: DateTime
+  +confidence: Decimal
+}
+
+class Notification {
+  +id: UUID
+  +type: NotificationType
+  +message: String
+  +sentAt: DateTime
+  +readAt: DateTime
+}
+
+enum NotificationType {
+  INVITATION
+  PAYMENT_REMINDER
+  SETTLEMENT
+  BILL_DUE
+  SYSTEM
+}
+
+User ||--o{ HouseholdMember : belongs to
+Household ||--o{ HouseholdMember : contains
+HouseholdMember }o--|| Household : joins
+
+Household ||--o{ Expense : owns
+HouseholdMember ||--o{ Expense : pays
+Expense ||--|{ ExpenseSplit : has
+HouseholdMember ||--o{ ExpenseSplit : owes
+
+Household ||--o{ RecurringExpense : contains
+Household ||--o{ Payment : records
+HouseholdMember ||--o{ Payment : makes
+
+Household ||--o{ Settlement : contains
+HouseholdMember ||--o{ Settlement : debtor
+HouseholdMember ||--o{ Settlement : creditor
+
+Household ||--o{ Invitation : creates
+User ||--o{ Invitation : creates
+
+Expense ||--o| Receipt : supported by
+User ||--o{ Notification : receives
+Household ||--o{ Notification : generates
+
+@enduml
