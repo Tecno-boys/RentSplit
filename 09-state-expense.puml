@@ -1,0 +1,12 @@
+@startuml RentSplit_Expense_State
+[*] --> Draft
+Draft --> PendingConfirmation : receipt extracted / manual entry
+PendingConfirmation --> Active : user confirms
+PendingConfirmation --> Draft : user edits
+Active --> PartiallySettled : payment recorded
+PartiallySettled --> Settled : remaining balance = 0
+Active --> Cancelled : expense cancelled
+Draft --> Cancelled : discarded
+Settled --> [*]
+Cancelled --> [*]
+@enduml

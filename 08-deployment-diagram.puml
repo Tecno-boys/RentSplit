@@ -1,0 +1,30 @@
+@startuml RentSplit_Deployment_Diagram
+skinparam shadowing false
+
+node "User Device" {
+  artifact "Browser / Mobile App" as Client
+}
+
+cloud "Internet" as Internet
+
+node "Cloud Hosting" {
+  node "Application Server" {
+    artifact "RentSplit API" as API
+  }
+  database "PostgreSQL Database" as DB
+  storage "Receipt Object Storage" as Storage
+}
+
+cloud "AI Provider" as AI
+cloud "Payment Provider" as Payment
+cloud "Notification Provider" as Notify
+
+Client --> Internet
+Internet --> API : HTTPS
+API --> DB : TLS / SQL
+API --> Storage : HTTPS
+API --> AI : HTTPS API
+API --> Payment : HTTPS API
+API --> Notify : HTTPS API
+
+@enduml
