@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import "./debtsettle.css";
+import Nav from "../../components/postLogin/nav"
 
 function Icon({ name, className = "" }) {
   return <span className={`material-symbols-outlined ${className}`}>{name}</span>;
@@ -154,71 +155,6 @@ const HISTORY = [
     amountColor: "var(--on-surface)",
   },
 ];
-
-function Header() {
-  return (
-    <header className="ds-header">
-      <div className="ds-header-inner">
-        <div className="ds-header-left">
-          <div className="ds-brand">
-            <div className="ds-brand-mark">
-              <Icon name="toll" />
-            </div>
-            <div className="ds-brand-cols">
-              <span className="ds-headline-md ds-brand-name">ROOMIES</span>
-              <span className="ds-label-mono ds-brand-sub">RENTSPLIT</span>
-            </div>
-          </div>
-
-          <div className="ds-header-divider" />
-
-          <div className="ds-flat-pill">
-            <div className="ds-flat-name">
-              <Icon name="apartment" />
-              <span className="ds-body-md">The Brooklyn Loft (#4B)</span>
-            </div>
-            <div className="ds-flat-active">
-              <span className="ds-dot-pulse" />
-              <span className="ds-label-mono">4 Active</span>
-            </div>
-            <div className="ds-flat-code">
-              <span className="ds-label-mono">CODE:</span>
-              <span className="ds-label-mono">849-291</span>
-            </div>
-          </div>
-        </div>
-
-        <nav className="ds-nav" aria-label="Primary">
-          {NAV_LINKS.map((link) => (
-            <a key={link.path} href="#" className={link.active ? "active" : ""} data-path={link.path}>
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        <div className="ds-header-actions">
-          <button className="ds-btn-add" type="button">
-            <Icon name="add" />
-            <span>Add Expense</span>
-          </button>
-          <button className="ds-btn-icon" type="button">
-            <Icon name="notifications" />
-            <span className="ds-notif-dot" />
-          </button>
-          <div className="ds-account">
-            <div className="ds-account-avatar">
-              <Icon name="person" />
-            </div>
-            <div className="ds-account-info">
-              <span className="ds-body-sm ds-account-name">Marcus Vance</span>
-              <span className="ds-label-mono ds-account-role">Admin</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
-}
 
 function Hero({ onRerun }) {
   return (
@@ -699,7 +635,7 @@ export default function DebtSettle() {
 
   return (
     <div className="ds-app">
-      <Header />
+      <Nav />
       <main className="ds-main">
         <div className="ds-container">
           <Hero onRerun={handleRerun} />

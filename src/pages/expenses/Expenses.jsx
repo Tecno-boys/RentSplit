@@ -1,5 +1,6 @@
 import React, { useMemo, useRef, useState } from "react";
 import "./expenses.css";
+import Nav from "../../components/postLogin/nav";
 
 function Icon({ name, className = "" }) {
   return <span className={`material-symbols-outlined ${className}`}>{name}</span>;
@@ -188,71 +189,6 @@ const LEDGER_ROWS = [
     statusClass: "pending",
   },
 ];
-
-function Header() {
-  return (
-    <header className="eo-header">
-      <div className="eo-header-inner">
-        <div className="eo-header-left">
-          <div className="eo-brand">
-            <div className="eo-brand-mark">
-              <Icon name="toll" />
-            </div>
-            <div className="eo-brand-cols">
-              <span className="eo-headline-md eo-brand-name">ROOMIES</span>
-              <span className="eo-label-mono eo-brand-sub">RENTSPLIT</span>
-            </div>
-          </div>
-
-          <div className="eo-header-divider" />
-
-          <div className="eo-flat-pill">
-            <div className="eo-flat-name">
-              <Icon name="apartment" />
-              <span className="eo-body-md">The Brooklyn Loft (#4B)</span>
-            </div>
-            <div className="eo-flat-active">
-              <span className="eo-dot-pulse" />
-              <span className="eo-label-mono">4 Active</span>
-            </div>
-            <div className="eo-flat-code">
-              <span className="eo-label-mono">CODE:</span>
-              <span className="eo-label-mono">849-291</span>
-            </div>
-          </div>
-        </div>
-
-        <nav className="eo-nav" aria-label="Primary">
-          {NAV_LINKS.map((link) => (
-            <a key={link.path} href="#" className={link.active ? "active" : ""} data-path={link.path}>
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        <div className="eo-header-actions">
-          <button className="eo-btn-add" type="button">
-            <Icon name="add" />
-            <span>Add Expense</span>
-          </button>
-          <button className="eo-btn-icon" type="button">
-            <Icon name="notifications" />
-            <span className="eo-notif-dot" />
-          </button>
-          <div className="eo-account">
-            <div className="eo-account-avatar">
-              <Icon name="person" />
-            </div>
-            <div className="eo-account-info">
-              <span className="eo-body-sm eo-account-name">Marcus Vance</span>
-              <span className="eo-label-mono eo-account-role">Admin</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
-}
 
 function PageHead() {
   return (
@@ -766,7 +702,7 @@ export default function ExpensesOCR() {
 
   return (
     <div className="eo-app" onClick={() => menuOpen && setMenuOpen(false)}>
-      <Header />
+      <Nav />
       <main className="eo-main">
         <div className="eo-container">
           <PageHead />

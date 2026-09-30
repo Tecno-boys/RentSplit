@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./RecurringBills.css";
+import Nav from "../../components/postLogin/nav";
 
 function Icon({ name, className = "", style }) {
   return (
@@ -185,71 +186,6 @@ const TIMELINE = [
     meta: "NYC Horizon Holdings LLC",
   },
 ];
-
-function Header() {
-  return (
-    <header className="rb-header">
-      <div className="rb-header-inner">
-        <div className="rb-header-left">
-          <div className="rb-brand">
-            <div className="rb-brand-mark">
-              <Icon name="toll" />
-            </div>
-            <div className="rb-brand-cols">
-              <span className="rb-headline-md rb-brand-name">ROOMIES</span>
-              <span className="rb-label-mono rb-brand-sub">RENTSPLIT</span>
-            </div>
-          </div>
-
-          <div className="rb-header-divider" />
-
-          <div className="rb-flat-pill">
-            <div className="rb-flat-name">
-              <Icon name="apartment" />
-              <span className="rb-body-md">The Brooklyn Loft (#4B)</span>
-            </div>
-            <div className="rb-flat-active">
-              <span className="rb-dot-pulse" />
-              <span className="rb-label-mono">4 Active</span>
-            </div>
-            <div className="rb-flat-code">
-              <span className="rb-label-mono">CODE:</span>
-              <span className="rb-label-mono">849-291</span>
-            </div>
-          </div>
-        </div>
-
-        <nav className="rb-nav" aria-label="Primary">
-          {NAV_LINKS.map((link) => (
-            <a key={link.path} href="#" className={link.active ? "active" : ""} data-path={link.path}>
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        <div className="rb-header-actions">
-          <button className="rb-btn-add" type="button">
-            <Icon name="add" />
-            <span>Add Expense</span>
-          </button>
-          <button className="rb-btn-icon" type="button">
-            <Icon name="notifications" />
-            <span className="rb-notif-dot" />
-          </button>
-          <div className="rb-account">
-            <div className="rb-account-avatar">
-              <Icon name="person" />
-            </div>
-            <div className="rb-account-info">
-              <span className="rb-body-sm rb-account-name">Marcus Vance</span>
-              <span className="rb-label-mono rb-account-role">Admin</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
-}
 
 function Hero({ onOpenModal }) {
   return (
@@ -650,7 +586,7 @@ export default function RecurringBills() {
 
   return (
     <div className="rb-app">
-      <Header />
+      <Nav />
       <main className="rb-main">
         <div className="rb-container">
           <Hero onOpenModal={() => setModalOpen(true)} />
