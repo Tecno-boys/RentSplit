@@ -22,7 +22,6 @@ const STATS = [
     valueColor: "var(--primary)",
     footer: "progress",
     progressPct: 92.6,
-    footerLeft: "Paced at 92.6%",
     footerRight: "Target $5,200",
   },
   {
@@ -35,21 +34,7 @@ const STATS = [
     subCurrency: "$3,400.00 Lease Total",
     subCurrencyColor: "var(--secondary-fixed)",
     footer: "text-icon",
-    footerLeft: "Automatic ACH via Vault",
-    footerIcon: "verified_user",
     footerIconColor: "var(--secondary)",
-  },
-  {
-    icon: "hub",
-    iconColor: "var(--primary-container)",
-    label: "Debt Engine Status",
-    value: "2 Swaps Needed",
-    valueClass: "rd-headline-md",
-    valueColor: "var(--primary)",
-    sub: "Resolves 12 micro-debts instantly",
-    footer: "tags",
-    tagLeft: "Max Efficiency",
-    tagRight: "Graph v2",
   },
 ];
 
