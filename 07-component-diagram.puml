@@ -1,0 +1,55 @@
+@startuml RentSplit_Component_Diagram
+skinparam componentStyle rectangle
+skinparam shadowing false
+
+package "Client Layer" {
+  [Web App] as Web
+  [Mobile App] as Mobile
+}
+
+package "Application Layer" {
+  [API Gateway / Backend] as API
+  [Auth Service] as Auth
+  [Household Service] as Household
+  [Expense Service] as Expense
+  [Split & Balance Service] as Split
+  [Settlement Service] as Settlement
+  [Notification Service] as Notify
+  [Receipt Service] as Receipt
+}
+
+package "External Services" {
+  [AI / OCR Provider] as AI
+  [Payment Provider] as Pay
+  [Email / Push Provider] as Push
+}
+
+package "Data Layer" {
+  database "PostgreSQL" as DB
+  storage "Object Storage" as Storage
+}
+
+Web --> API
+Mobile --> API
+API --> Auth
+API --> Household
+API --> Expense
+API --> Split
+API --> Settlement
+API --> Notify
+API --> Receipt
+
+Household --> DB
+Expense --> DB
+Split --> DB
+Settlement --> DB
+Auth --> DB
+Notify --> DB
+Receipt --> DB
+
+Receipt --> Storage
+Receipt --> AI
+Settlement --> Pay
+Notify --> Push
+
+@enduml

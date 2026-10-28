@@ -1,0 +1,30 @@
+@startuml RentSplit_Settlement
+actor "Household Member" as User
+boundary "RentSplit UI" as UI
+control "Settlement Controller" as Controller
+control "Balance Service" as Balance
+control "Settlement Optimizer" as Optimizer
+database "RentSplit DB" as DB
+
+User -> UI : Request settlement plan
+UI -> Controller : GET /settlements
+Controller -> Balance : Calculate net member balances
+Balance -> DB : Read expenses, splits, payments
+DB --> Balance : Financial records
+Balance --> Controller : Net balances
+Controller -> Optimizer : Minimize transfers
+Optimizer --> Controller : Settlement transactions
+Controller --> UI : Suggested settlements
+UI --> User : Show who pays whom
+
+User -> UI : Confirm payment
+UI -> Controller : POST /payments
+Controller -> DB : Record payment
+Controller -> Balance : Recalculate balances
+Balance -> DB : Read latest records
+DB --> Balance : Updated records
+Balance --> Controller : Updated balances
+Controller --> UI : Payment confirmed
+UI --> User : Settlement updated
+
+@enduml

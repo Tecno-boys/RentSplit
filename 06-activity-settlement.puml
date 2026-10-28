@@ -1,0 +1,28 @@
+@startuml RentSplit_Settlement_Activity
+start
+:Load household expenses;
+:Load recorded payments;
+:Calculate amount each member should pay;
+:Calculate amount each member actually paid;
+:Calculate net balance per member;
+
+if (All balances are zero?) then (Yes)
+  :Display "Settled";
+  stop
+else (No)
+  :Separate debtors and creditors;
+  :Sort by outstanding amount;
+  :Match debtors with creditors;
+  :Generate minimum settlement transfers;
+  :Display settlement plan;
+
+  if (User records a payment?) then (Yes)
+    :Create Payment record;
+    :Recalculate balances;
+    :Update settlement status;
+  else (No)
+    :Keep settlements pending;
+  endif
+endif
+stop
+@enduml

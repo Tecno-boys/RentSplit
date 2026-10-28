@@ -1,0 +1,23 @@
+@startuml RentSplit_Add_Expense
+actor "Household Member" as User
+boundary "RentSplit Web/Mobile UI" as UI
+control "Expense Controller" as Controller
+control "Split Service" as Splitter
+control "Balance Service" as Balancer
+database "RentSplit DB" as DB
+
+User -> UI : Enter expense details
+UI -> Controller : POST /expenses
+Controller -> Controller : Validate request
+Controller -> Splitter : Calculate expense split
+Splitter --> Controller : Split amounts
+Controller -> DB : Save Expense
+Controller -> DB : Save ExpenseSplit records
+Controller -> Balancer : Recalculate household balances
+Balancer -> DB : Read member payments and shares
+DB --> Balancer : Financial data
+Balancer --> Controller : Updated balances
+Controller --> UI : Expense + updated balances
+UI --> User : Display confirmation
+
+@enduml

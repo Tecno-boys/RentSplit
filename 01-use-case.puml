@@ -1,0 +1,67 @@
+@startuml RentSplit_Use_Case
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+actor "Household Owner" as Owner
+actor "Household Member" as Member
+actor "Payment Service" as Payment
+actor "AI / Receipt Service" as AI
+
+rectangle "RentSplit System" {
+  usecase "Register / Sign In" as UC1
+  usecase "Create Household" as UC2
+  usecase "Join Household" as UC3
+  usecase "Invite Member" as UC4
+  usecase "Manage Household" as UC5
+  usecase "Add Expense" as UC6
+  usecase "Split Expense" as UC7
+  usecase "Configure Custom Split" as UC8
+  usecase "Add Recurring Expense" as UC9
+  usecase "View Balances" as UC10
+  usecase "View Expense History" as UC11
+  usecase "Calculate Settlement" as UC12
+  usecase "Record Payment" as UC13
+  usecase "Send Payment Reminder" as UC14
+  usecase "Upload Receipt" as UC15
+  usecase "Extract Receipt Data" as UC16
+  usecase "Confirm Extracted Expense" as UC17
+  usecase "View Household Summary" as UC18
+}
+
+Owner --> UC1
+Member --> UC1
+Owner --> UC2
+Member --> UC3
+Owner --> UC4
+Owner --> UC5
+Owner --> UC6
+Member --> UC6
+Owner --> UC9
+Member --> UC9
+Owner --> UC10
+Member --> UC10
+Owner --> UC11
+Member --> UC11
+Owner --> UC12
+Member --> UC12
+Owner --> UC13
+Member --> UC13
+Owner --> UC14
+Member --> UC14
+Owner --> UC15
+Member --> UC15
+Owner --> UC17
+Member --> UC17
+Owner --> UC18
+Member --> UC18
+
+UC6 .> UC7 : <<include>>
+UC7 .> UC8 : <<extend>>
+UC15 .> UC16 : <<include>>
+UC16 --> AI
+UC13 --> Payment
+UC12 .> UC10 : <<include>>
+UC14 .> UC13 : <<extend>>
+
+@enduml
