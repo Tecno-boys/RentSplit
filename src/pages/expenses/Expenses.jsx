@@ -1,5 +1,6 @@
 import React, { useMemo, useRef, useState } from "react";
 import "./expenses.css";
+import Nav from "../../components/postLogin/nav";
 
 function Icon({ name, className = "" }) {
   return <span className={`material-symbols-outlined ${className}`}>{name}</span>;
@@ -188,71 +189,6 @@ const LEDGER_ROWS = [
     statusClass: "pending",
   },
 ];
-
-function Header() {
-  return (
-    <header className="eo-header">
-      <div className="eo-header-inner">
-        <div className="eo-header-left">
-          <div className="eo-brand">
-            <div className="eo-brand-mark">
-              <Icon name="toll" />
-            </div>
-            <div className="eo-brand-cols">
-              <span className="eo-headline-md eo-brand-name">ROOMIES</span>
-              <span className="eo-label-mono eo-brand-sub">RENTSPLIT</span>
-            </div>
-          </div>
-
-          <div className="eo-header-divider" />
-
-          <div className="eo-flat-pill">
-            <div className="eo-flat-name">
-              <Icon name="apartment" />
-              <span className="eo-body-md">The Brooklyn Loft (#4B)</span>
-            </div>
-            <div className="eo-flat-active">
-              <span className="eo-dot-pulse" />
-              <span className="eo-label-mono">4 Active</span>
-            </div>
-            <div className="eo-flat-code">
-              <span className="eo-label-mono">CODE:</span>
-              <span className="eo-label-mono">849-291</span>
-            </div>
-          </div>
-        </div>
-
-        <nav className="eo-nav" aria-label="Primary">
-          {NAV_LINKS.map((link) => (
-            <a key={link.path} href="#" className={link.active ? "active" : ""} data-path={link.path}>
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        <div className="eo-header-actions">
-          <button className="eo-btn-add" type="button">
-            <Icon name="add" />
-            <span>Add Expense</span>
-          </button>
-          <button className="eo-btn-icon" type="button">
-            <Icon name="notifications" />
-            <span className="eo-notif-dot" />
-          </button>
-          <div className="eo-account">
-            <div className="eo-account-avatar">
-              <Icon name="person" />
-            </div>
-            <div className="eo-account-info">
-              <span className="eo-body-sm eo-account-name">Marcus Vance</span>
-              <span className="eo-label-mono eo-account-role">Admin</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
-}
 
 function PageHead() {
   return (
@@ -494,83 +430,6 @@ function ItemizerPanel() {
     });
     return { userTotal: user, householdTotal: grand - user };
   }, [items]);
-
-  return (
-    <div className="eo-bento-right">
-      <div className="eo-itemizer">
-        <div className="eo-itemizer-head">
-          <div>
-            <div className="eo-itemizer-meta-row eo-label-mono">
-              <span>Live Itemizer Preview</span>
-              <span>•</span>
-              <span>Trader Joe's - Court St, Brooklyn</span>
-            </div>
-            <h3 className="eo-headline-md eo-itemizer-title">Assign Line-Item Consumers</h3>
-          </div>
-          <div className="eo-quick-split">
-            <span>Quick split:</span>
-            <button className="eo-quick-btn" type="button" onClick={() => setAll(true)}>
-              Select All
-            </button>
-            <button className="eo-quick-btn clear" type="button" onClick={() => setAll(false)}>
-              Clear
-            </button>
-          </div>
-        </div>
-
-        <div className="eo-legend-row eo-label-mono">
-          <div className="eo-legend-desc">DETECTED LINE ITEM &amp; TAX CODE</div>
-          <div className="eo-legend-price">PRICE</div>
-          <div className="eo-legend-checks">
-            {ROOMMATE_COLUMNS.map((r) => (
-              <span key={r.key} title={r.title}>
-                {r.initials}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div className="eo-item-list">
-          {items.map((item) => (
-            <div className="eo-item-row" key={item.id}>
-              <div className="eo-item-desc">
-                <span className="eo-body-md eo-item-name">{item.name}</span>
-                <span className="eo-label-mono eo-item-sku">{item.sku}</span>
-              </div>
-              <div className="eo-currency-md eo-item-price">${item.price.toFixed(2)}</div>
-              <div className="eo-item-checks">
-                {ROOMMATE_COLUMNS.map((r) => (
-                  <input
-                    key={r.key}
-                    type="checkbox"
-                    checked={item.checks[r.key]}
-                    onChange={() => toggleCheck(item.id, r.key)}
-                  />
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="eo-itemizer-footer">
-          <div className="eo-live-shares">
-            <div className="eo-live-share-block">
-              <span className="eo-label-mono">Your Allocation</span>
-              <span className="eo-currency-md accent">${userTotal.toFixed(2)}</span>
-            </div>
-            <div className="eo-live-divider" />
-            <div className="eo-live-share-block">
-              <span className="eo-label-mono">Flatmate Total</span>
-              <span className="eo-currency-md neutral">${householdTotal.toFixed(2)}</span>
-            </div>
-          </div>
-          <button className="eo-apply-btn eo-headline-md" type="button">
-            Apply &amp; Push to Ledger
-          </button>
-        </div>
-      </div>
-    </div>
-  );
 }
 
 function LedgerTable({ search, roommateFilter, activeCategory }) {
@@ -766,7 +625,7 @@ export default function ExpensesOCR() {
 
   return (
     <div className="eo-app" onClick={() => menuOpen && setMenuOpen(false)}>
-      <Header />
+      <Nav />
       <main className="eo-main">
         <div className="eo-container">
           <PageHead />

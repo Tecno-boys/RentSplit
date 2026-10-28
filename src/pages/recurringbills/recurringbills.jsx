@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./RecurringBills.css";
+import Nav from "../../components/postLogin/nav";
 
 function Icon({ name, className = "", style }) {
   return (
@@ -24,7 +25,6 @@ const ROOMMATES = [
     room: "Master Room",
     roomDetail: "280 sq ft • Private En-Suite",
     sqft: 280,
-    pct: 30,
     pctExact: "29.95%",
     amount: "$950.00",
     color: "var(--primary-container)",
@@ -39,7 +39,6 @@ const ROOMMATES = [
     room: "Balcony Room",
     roomDetail: "240 sq ft • Private Terrace Access",
     sqft: 240,
-    pct: 26,
     pctExact: "25.67%",
     amount: "$880.00",
     color: "var(--secondary)",
@@ -54,7 +53,6 @@ const ROOMMATES = [
     room: "Standard A",
     roomDetail: "210 sq ft • Shared Bath 1",
     sqft: 210,
-    pct: 23,
     pctExact: "22.46%",
     amount: "$790.00",
     color: "var(--secondary-container)",
@@ -69,7 +67,6 @@ const ROOMMATES = [
     room: "Standard B",
     roomDetail: "205 sq ft • East Sun Exposure",
     sqft: 205,
-    pct: 22,
     pctExact: "21.92%",
     amount: "$780.00",
     color: "var(--outline-variant)",
@@ -84,54 +81,34 @@ const UTILITIES = [
   {
     icon: "bolt",
     iconColor: "var(--primary-container)",
-    name: "ConEd Electric & Gas",
-    desc: "Consolidated Variable Billing",
+    name: "Electric & Gas",
     price: "~$140.00",
     priceNote: "avg / mo",
     sparkline: true,
-    footerRows: [
-      { label: "Split Rule", value: "25% (4 ways equal)" },
-      { label: "Cycle Date", value: "18th of month", accent: true },
-    ],
   },
   {
     icon: "wifi",
     iconColor: "var(--secondary)",
     name: "Spectrum Gigabit Fiber",
-    desc: "High Speed 1Gbps Dedicated",
     price: "$89.99",
     priceNote: "fixed / mo",
     individualCost: "$22.50 ea",
-    footerRows: [
-      { label: "Split Rule", value: "Flat 4-Way Equal" },
-      { label: "Cycle Date", value: "15th of month", accent: true },
-    ],
   },
   {
     icon: "cleaning_services",
     iconColor: "var(--secondary-fixed)",
     name: "Monthly Cleaning Crew",
-    desc: "Communal Spaces + Kitchen",
     price: "$160.00",
     priceNote: "monthly total",
     individualCost: "$40.00 ea",
-    footerRows: [
-      { label: "Schedule", value: "1st & 3rd Thursday" },
-      { label: "Direct Debit", value: "Via Venmo Batch", accent: true },
-    ],
   },
   {
     icon: "tv",
     iconColor: "var(--tertiary-fixed-dim)",
     name: "Shared Streaming Bundle",
-    desc: "Spotify Family + Hulu (Ad-Free)",
     price: "$24.99",
     priceNote: "fixed / mo",
     individualCost: "$6.25 ea",
-    footerRows: [
-      { label: "Paid By", value: "Samira Khan (Reimbursed)" },
-      { label: "Cycle Date", value: "27th of month", accent: true },
-    ],
   },
 ];
 
@@ -186,95 +163,20 @@ const TIMELINE = [
   },
 ];
 
-function Header() {
-  return (
-    <header className="rb-header">
-      <div className="rb-header-inner">
-        <div className="rb-header-left">
-          <div className="rb-brand">
-            <div className="rb-brand-mark">
-              <Icon name="toll" />
-            </div>
-            <div className="rb-brand-cols">
-              <span className="rb-headline-md rb-brand-name">ROOMIES</span>
-              <span className="rb-label-mono rb-brand-sub">RENTSPLIT</span>
-            </div>
-          </div>
-
-          <div className="rb-header-divider" />
-
-          <div className="rb-flat-pill">
-            <div className="rb-flat-name">
-              <Icon name="apartment" />
-              <span className="rb-body-md">The Brooklyn Loft (#4B)</span>
-            </div>
-            <div className="rb-flat-active">
-              <span className="rb-dot-pulse" />
-              <span className="rb-label-mono">4 Active</span>
-            </div>
-            <div className="rb-flat-code">
-              <span className="rb-label-mono">CODE:</span>
-              <span className="rb-label-mono">849-291</span>
-            </div>
-          </div>
-        </div>
-
-        <nav className="rb-nav" aria-label="Primary">
-          {NAV_LINKS.map((link) => (
-            <a key={link.path} href="#" className={link.active ? "active" : ""} data-path={link.path}>
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        <div className="rb-header-actions">
-          <button className="rb-btn-add" type="button">
-            <Icon name="add" />
-            <span>Add Expense</span>
-          </button>
-          <button className="rb-btn-icon" type="button">
-            <Icon name="notifications" />
-            <span className="rb-notif-dot" />
-          </button>
-          <div className="rb-account">
-            <div className="rb-account-avatar">
-              <Icon name="person" />
-            </div>
-            <div className="rb-account-info">
-              <span className="rb-body-sm rb-account-name">Marcus Vance</span>
-              <span className="rb-label-mono rb-account-role">Admin</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
-}
-
 function Hero({ onOpenModal }) {
   return (
     <div className="rb-hero">
       <div className="rb-hero-text">
-        <div className="rb-hero-tag">
-          <span className="rb-hero-tag-dot" />
-          <span className="rb-label-mono">Contract Protocol • Apt 4B</span>
-        </div>
         <h1 className="rb-headline-lg rb-hero-title">Recurring Bills &amp; Rent Allocation</h1>
         <p className="rb-body-lg rb-hero-sub">
-          Automate monthly lease splits based on room size and auto-schedule utility dues.
+          Pay according to your agreement
         </p>
       </div>
 
       <div className="rb-hero-actions">
-        <div className="rb-vault-pill">
-          <Icon name="verified_user" />
-          <span className="rb-label-mono">
-            ACH LANDLORD VAULT: <strong>LINKED</strong>
-          </span>
-        </div>
         <button className="rb-edit-btn rb-headline-md" type="button" onClick={onOpenModal}>
           <Icon name="tune" />
-          <span>Edit Formula</span>
+          <span>Edit Split</span>
         </button>
       </div>
     </div>
@@ -289,7 +191,7 @@ function LeasePanel({ autopay, onToggleAutopay }) {
       <div className="rb-lease-top">
         <div className="rb-lease-metrics">
           <div className="rb-metric-block">
-            <span className="rb-label-mono rb-metric-block-label">Total Contractual Lease</span>
+            <span className="rb-label-mono rb-metric-block-label">Your Monthly Rent</span>
             <div className="rb-metric-row">
               <span className="rb-currency-display" style={{ color: "var(--primary)" }}>
                 $3,400.00
@@ -298,35 +200,12 @@ function LeasePanel({ autopay, onToggleAutopay }) {
             </div>
           </div>
           <div className="rb-metric-vdivider" />
-          <div className="rb-metric-block">
-            <span className="rb-label-mono rb-metric-block-label">Total Measurable Space</span>
-            <span className="rb-headline-md rb-metric-block-value">
-              935 <span className="rb-body-sm">sq ft private footprint</span>
-            </span>
-          </div>
-        </div>
-
-        <div className="rb-autopay-card">
-          <div className="rb-autopay-left">
-            <div className="rb-autopay-icon">
-              <Icon name="account_balance" />
-            </div>
-            <div className="rb-autopay-info">
-              <span className="rb-body-md rb-autopay-title">Landlord Auto-Pay</span>
-              <span className="rb-label-mono rb-autopay-sub">Lease ends Aug 31, 2026</span>
-            </div>
-          </div>
-          <label className="rb-toggle">
-            <input type="checkbox" checked={autopay} onChange={onToggleAutopay} />
-            <span className="rb-toggle-track" />
-          </label>
         </div>
       </div>
 
       <div className="rb-ratio-block">
         <div className="rb-ratio-head">
-          <span className="rb-label-mono">Square-Footage Proportional Split Ratio</span>
-          <span className="rb-label-mono">100% Floorplan Accounted</span>
+          <span className="rb-label-mono">Split Ratio</span>
         </div>
 
         <div className="rb-stacked-bar">
@@ -348,7 +227,7 @@ function LeasePanel({ autopay, onToggleAutopay }) {
             <div className="rb-legend-item rb-label-mono" key={r.key}>
               <span className="rb-legend-dot" style={{ backgroundColor: r.color }} />
               <span>
-                {r.name.split(" ")[0]} ({r.sqft}sqft • {r.pct}%)
+                {r.name.split(" ")[0]}
               </span>
             </div>
           ))}
@@ -362,24 +241,17 @@ function LeasePanel({ autopay, onToggleAutopay }) {
               <div className="rb-person-head">
                 <div className="rb-avatar-wrap">
                   <img src={r.img} alt={r.alt} />
-                  <span className="rb-avatar-pct" style={{ color: r.color }}>
-                    {r.pct}%
-                  </span>
                 </div>
+                <span className="rb-body-lg rb-person-name">{r.name}</span>
                 <span className="rb-room-tag" style={{ backgroundColor: r.tagBg, color: r.tagColor }}>
                   {r.room}
                 </span>
-              </div>
-              <div className="rb-person-name-block">
-                <span className="rb-body-lg rb-person-name">{r.name}</span>
-                <span className="rb-body-sm rb-person-room">{r.roomDetail}</span>
               </div>
             </div>
             <div className="rb-share-box">
               <span className="rb-label-mono rb-share-box-label">Monthly Share</span>
               <div className="rb-share-row">
                 <span className="rb-currency-md rb-share-amount">{r.amount}</span>
-                <span className="rb-label-mono rb-share-autopay">Auto-Pay On</span>
               </div>
             </div>
           </div>
@@ -390,14 +262,9 @@ function LeasePanel({ autopay, onToggleAutopay }) {
         <div className="rb-footnote-left">
           <Icon name="info" />
           <span className="rb-body-sm">
-            Formula incorporates +$40 amenity adjustment for private en-suite bathroom and +$20 for private
-            terrace balcony.
+            Ratios are set by the Flat Admin
           </span>
         </div>
-        <a className="rb-footnote-link rb-label-mono" href="#">
-          <span>Download Signed Addendum (PDF)</span>
-          <Icon name="arrow_outward" />
-        </a>
       </div>
     </div>
   );
@@ -427,7 +294,7 @@ function UtilitiesSection() {
     <div className="rb-section">
       <div className="rb-section-head">
         <div>
-          <h2 className="rb-headline-md rb-section-title">Automated Utilities &amp; Subscriptions</h2>
+          <h2 className="rb-headline-md rb-section-title">Utilities &amp; Subscriptions</h2>
           <p className="rb-body-sm rb-section-desc">
             Connected household feeds auto-billed and fractioned across active residents.
           </p>
@@ -446,15 +313,12 @@ function UtilitiesSection() {
                 <div className="rb-utility-icon">
                   <Icon name={u.icon} style={{ color: u.iconColor }} />
                 </div>
-                <span className="rb-autodraft-pill">
-                  <span className="rb-dot-pulse" />
-                  AUTO-DRAFT
-                </span>
-              </div>
 
-              <div className="rb-utility-name-block">
+                <div className="rb-utility-name-block">
                 <span className="rb-body-lg rb-utility-name">{u.name}</span>
                 <span className="rb-body-sm rb-utility-desc">{u.desc}</span>
+                </div>
+
               </div>
 
               <div className="rb-utility-price-row">
@@ -472,85 +336,8 @@ function UtilitiesSection() {
                 )}
               </div>
             </div>
-
-            <div className="rb-utility-footer">
-              {u.footerRows.map((row) => (
-                <div className="rb-utility-footer-row" key={row.label}>
-                  <span>{row.label}</span>
-                  <span className={row.accent ? "accent" : ""}>{row.value}</span>
-                </div>
-              ))}
-            </div>
           </div>
         ))}
-      </div>
-    </div>
-  );
-}
-
-function AutomationSection() {
-  return (
-    <div className="rb-automation-grid">
-      <div className="rb-automation-card">
-        <div className="rb-automation-head">
-          <div className="rb-automation-head-left">
-            <div className="rb-automation-icon">
-              <Icon name="smart_toy" />
-            </div>
-            <div>
-              <h3 className="rb-headline-md rb-automation-title">Automated Reminder &amp; Pull Rules</h3>
-              <p className="rb-body-sm rb-automation-sub">
-                Zero-friction collection rules to prevent lease default and late fees.
-              </p>
-            </div>
-          </div>
-          <span className="rb-label-mono rb-active-pill">ALL ACTIVE</span>
-        </div>
-
-        <div className="rb-rules-list">
-          {RULES.map((rule) => (
-            <div className="rb-rule-row" key={rule.title}>
-              <div className="rb-rule-left">
-                <div className="rb-rule-icon">
-                  <Icon name={rule.icon} style={{ color: rule.iconColor }} />
-                </div>
-                <div>
-                  <div className="rb-body-md rb-rule-title">{rule.title}</div>
-                  <div className="rb-body-sm rb-rule-desc">{rule.desc}</div>
-                </div>
-              </div>
-              <Icon name="toggle_on" className="rb-rule-toggle" />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="rb-timeline-card">
-        <div>
-          <div className="rb-timeline-head">
-            <span className="rb-body-lg">Upcoming Milestones</span>
-            <span className="rb-label-mono">OCTOBER 2025</span>
-          </div>
-
-          <div className="rb-timeline-list" style={{ marginTop: "1rem" }}>
-            {TIMELINE.map((item) => (
-              <div className="rb-timeline-item" key={item.title}>
-                <div className={`rb-timeline-date ${item.tone}`}>{item.date}</div>
-                <div>
-                  <div className={`rb-body-sm rb-timeline-title${item.titleStrong ? " strong" : ""}`}>
-                    {item.title}
-                  </div>
-                  <div className={`rb-label-mono rb-timeline-meta ${item.metaTone || ""}`}>{item.meta}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <button className="rb-sync-btn rb-headline-md" type="button">
-          <Icon name="calendar_month" />
-          <span>Sync with Google / Apple Calendar</span>
-        </button>
       </div>
     </div>
   );
@@ -650,13 +437,12 @@ export default function RecurringBills() {
 
   return (
     <div className="rb-app">
-      <Header />
+      <Nav />
       <main className="rb-main">
         <div className="rb-container">
           <Hero onOpenModal={() => setModalOpen(true)} />
           <LeasePanel autopay={autopay} onToggleAutopay={() => setAutopay((v) => !v)} />
           <UtilitiesSection />
-          <AutomationSection />
         </div>
       </main>
       <Footer />

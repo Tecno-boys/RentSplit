@@ -839,12 +839,12 @@ body {
 
 .eo-bento-left {
   display: flex;
-  flex-direction: column;
   gap: var(--space-lg);
 }
 
 .eo-dropzone {
   position: relative;
+  width: 30vw;
   padding: var(--space-xl);
   border-radius: var(--radius-lg);
   background-color: var(--surface-container-low);

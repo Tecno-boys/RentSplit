@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import Dashboard from './pages/dashboard'    
-import LandingPage from './pages/LandingPage'
-import Expenses from './pages/Expenses'
-import RecurringBills from './pages/recurringbills'
-import DebtSettle from './debtsettle'
+import Dashboard from './pages/dashboard/dashboard'    
+import LandingPage from './pages/landingpage/LandingPage'
+import Expenses from './pages/expenses/Expenses'
+import RecurringBills from './pages/recurringbills/recurringbills'
 import './App.css'
 
 function App() {
@@ -16,7 +15,6 @@ function App() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/expenses" element={<Expenses />} />
       <Route path="/recurring-bills" element={<RecurringBills />} />
-      <Route path="/debt-settle" element={<DebtSettle />} />
     </Routes>
   )
 }

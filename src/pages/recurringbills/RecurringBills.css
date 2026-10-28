@@ -903,6 +903,7 @@ body {
 }
 
 .rb-person-name {
+  font-size: .75rem;
   color: var(--primary);
   font-weight: 700;
 }
@@ -1071,8 +1072,8 @@ body {
 
 .rb-utility-head {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
 }
 
 .rb-utility-icon {
